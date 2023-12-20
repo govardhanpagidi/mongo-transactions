@@ -1,7 +1,8 @@
 # mongo-transactions
 
 ## Transacations allowed only in Replicaset and Sharded clusters
-   Transcation doesn't work with local mongodb setup unless it sets up with replicaset. So use mongodb which has replica set 
+   Note:
+      Transcation doesn't work with local mongodb setup unless it sets up with replicaset. So use mongodb which has replica set 
 
 
 ### Output:
