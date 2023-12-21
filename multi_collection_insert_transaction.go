@@ -39,13 +39,12 @@ func TestMultiInsertTransactionCommit(dbName string, collName ...string) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Println("recovered from panic: ", r)
-			err = session.AbortTransaction(ctx)
-			if err != nil {
-				log.Fatal(err)
-			}
-			session.EndSession(ctx)
-		} else {
-			session.EndSession(ctx)
+		}
+		session.EndSession(ctx)
+		err := client.Disconnect(ctx)
+		if err != nil {
+			log.Fatal(err)
+			return
 		}
 	}()
 
@@ -74,7 +73,10 @@ func TestMultiInsertTransactionCommit(dbName string, collName ...string) {
 		}
 		return nil
 	}); err != nil {
-		panic("panic from transaction")
+		err = session.AbortTransaction(ctx)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 	session.EndSession(ctx)
 
