@@ -63,6 +63,7 @@ func TestMultiInsertTransactionCommit(dbName string, collName ...string) {
 		}
 
 		collection3 := client.Database(dbName).Collection(collName[2])
+		// Simulate failure even no error in Insert operation
 		if _, err = collection3.InsertOne(sc, transDoc); err == nil {
 			log.Println("Abort transaction")
 			return errors.New("Simulated error in transaction even there is no error in transaction")
